@@ -1,0 +1,178 @@
+.register-form {
+  width: 700px;
+  margin: 0 auto;
+  color: #fff;
+  border-radius: 12px;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  background-color: #939393;
+  display: flex;
+  flex-direction: column;
+  padding: 19px 23px 12px;
+  font-size: 20px;
+}
+
+.register-form h2 {
+  text-align: center;
+  color: #ff0;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="date"],
+.form-group input[type="tel"],
+.form-group input[type="file"] {
+  width: calc(100% - 10px);
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+}
+
+.form-group input[type="file"] {
+  background-color: #fff;
+  color: #000;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.buttons button {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.coordinate-fingerprint {
+  background-color: #ff0;
+  color: #000;
+}
+
+.avail-membership {
+  background-color: #ff0;
+  color: #000;
+}
+
+.cancel {
+  background-color: #fff;
+  color: #000;
+}
+.form-actions {
+  display: flex;
+  margin-top: 16px;
+  gap: 20px;
+  font-size: 16px;
+  text-align: center;
+}
+
+@media (max-width: 991px) {
+  .form-actions {
+    flex-wrap: wrap;
+  }
+}
+.fingerprint-btn {
+  font-family: Poppins, sans-serif;
+  justify-content: center;
+  border-radius: 12px;
+  background-color: #fecc09;
+  align-self: start;
+  color: #fff;
+  font-weight: 700;
+  flex-grow: 1;
+  width: fit-content;
+  padding: 3px 21px;
+}
+
+@media (max-width: 991px) {
+  .fingerprint-btn {
+    padding: 0 20px;
+  }
+}
+
+.membership-actions {
+  display: flex;
+  gap: 13px;
+  flex-grow: 1;
+  flex-basis: auto;
+}
+
+.membership-btn {
+  font-family: Poppins, sans-serif;
+  align-items: start;
+  border-radius: 12px;
+  background-color: #fecc09;
+  color: #fff;
+  font-weight: 700;
+  justify-content: center;
+  padding: 3px 21px;
+}
+
+@media (max-width: 991px) {
+  .membership-btn {
+    padding: 0 20px;
+  }
+}
+
+.cancel-btn {
+  font-family: Poppins, sans-serif;
+  justify-content: center;
+  border-radius: 12px;
+  border: 2px solid #fecc09;
+  background-color: #fff;
+  color: #fecc09;
+  font-weight: 400;
+  white-space: nowrap;
+  padding: 3px 21px;
+}
+
+@media (max-width: 991px) {
+  .cancel-btn {
+    white-space: initial;
+    padding: 0 20px;
+  }
+}
+
+.container-img {
+  margin-top: 0px;
+  display: flex;
+  justify-content: space-between;
+}
+.photo-attachment {
+  display: flex;
+  align-items: center;
+  margin-top: 18px;
+  gap: 10px;
+  font-size: 16px;
+  color: #fff;
+  font-weight: 400;
+}
+
+.photo-text {
+  font-family: Poppins, sans-serif;
+  flex-grow: 1;
+  flex-basis: auto;
+}
+
+.image {
+  aspect-ratio: 1.18;
+  object-fit: auto;
+  object-position: center;
+  width: 20px;
+  fill: #fecc09;
+}
+
+.photo-placeholder {
+  background-color: #fff;
+  margin-top: 9px;
+  width: 112px;
+  height: 112px;
+}

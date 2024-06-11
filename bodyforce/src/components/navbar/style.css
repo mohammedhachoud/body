@@ -1,0 +1,60 @@
+.navBar {
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25),
+      4px 4px 4px 0px rgba(77, 149, 83, 0.11);
+    background-color: #000;
+    
+    /* Max width to prevent exceeding screen size */
+    width: 100;
+    height: 20px;
+    
+    padding: 05px 40px 100px; /* Adjust padding if necessary */
+  }
+  .navBarlist {
+      display: flex;
+      align-items: start;
+      gap: 20px; /* Adjust spacing between logos as needed */
+      font-size: 14px;
+      justify-content: space-between;
+      color: #fecc09;
+      font-weight: 400;
+      white-space: nowrap;
+      text-align: center;
+      flex-wrap: wrap;
+      padding: 0 20px;
+    }
+  .img {
+    aspect-ratio: 1;
+    object-fit: auto;
+    object-position: center;
+    width: 40px;
+    align-self: center;
+  }
+  
+  .navBarlist {
+    display: flex;
+    align-items: center;/* Add this line to distribute logos evenly */
+    list-style-type: none;
+  }
+  .logo-start{
+    aspect-ratio: 2.38;
+    object-fit: auto;
+    object-position: center;
+    width: 147px;
+    max-width: 100%;
+  }
+  .logo-end {
+    aspect-ratio: 0.9;
+    object-fit: auto;
+    object-position: center;
+    width: 35px;
+    margin-top: 27px
+  }
+  .logo-start {
+    aspect-ratio: 0.9;
+    object-fit: auto;
+    object-position: center;
+    width: 50px;
+    margin-top: 27px
+  }
+ 
+  
