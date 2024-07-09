@@ -8,17 +8,8 @@ const ImageWrapper = ({ src, alt }) => (
   </div>
 );
 
-const InputField = ({ label, type, id, placeholder }) => (
-  <div className="input-field">
-    <label htmlFor={id} className="visually-hidden">
-      {label}
-    </label>
-    <input type={type} id={id} placeholder={placeholder} aria-label={label} />
-  </div>
-);
-
-const Button = ({ children, className }) => (
-  <button className={`button ${className}`}>{children}</button>
+const Button = ({ children, className, type }) => (
+  <button type={type} className={`button ${className}`}>{children}</button>
 );
 
 function RegisterForm() {
@@ -27,90 +18,108 @@ function RegisterForm() {
   const [birthday, setBirthday] = useState('');
   const [contactNo, setContactNo] = useState('');
   const [gender, setGender] = useState('');
+  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
   const [member, setMember] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const newMember = { participantName, joinDate, birthday, contactNo, gender };
+    const newMember = { participantName, joinDate, birthday, contactNo, gender, password, email };
     setMember(newMember);
-    console.log(newMember);
-    console.log(member); // This will print the member object to the console
-    //const response = await axios.post('/members', member);
-    //console.log(response.data);
+
+    try {
+      const response = await axios.post('/register', newMember);
+      console.log(response.data);
+    } catch (error) {
+      console.error("There was an error registering the user!", error);
+    }
   };
+
   return (
     <>
-    <div className="form-container">
-      <form onSubmit={handleSubmit} className="registration-form">
-        <header className="header">
-          <h1 className="title">Register</h1>
-        </header>
-        <div className="container-img">
-        <div className="photo-attachment">
-            <span className="photo-text">Attach Photo</span>
-            <input style={{ display: 'none' }} id="file-upload" type="file" accept="image/*" capture="camera" />
-<label htmlFor="file-upload">
-  <ImageWrapper
-    src="https://cdn.builder.io/api/v1/image/assets/TEMP/1bc11dec4123927fbe4b1fe31983959f2e6c1a149b88addf7b334cffe12c4747?apiKey=c870781db53a4609b6fa9f5a93cb9ccc&"
-    alt="Attach photo icon"
-  />
-</label>
+      <div className="form-container">
+        <form onSubmit={handleSubmit} className="registration-form">
+          <header className="header">
+            <h1 className="title">Register</h1>
+          </header>
+          <div className="container-img">
+            <div className="photo-attachment">
+              <span className="photo-text">Attach Photo</span>
+              <input style={{ display: 'none' }} id="file-upload" type="file" accept="image/*" capture="camera" />
+              <label htmlFor="file-upload">
+                <ImageWrapper
+                  src="https://cdn.builder.io/api/v1/image/assets/TEMP/1bc11dec4123927fbe4b1fe31983959f2e6c1a149b88addf7b334cffe12c4747?apiKey=c870781db53a4609b6fa9f5a93cb9ccc&"
+                  alt="Attach photo icon"
+                />
+              </label>
+            </div>
+            <div className="photo-placeholder" />
           </div>
-          
-        <div className="photo-placeholder" />
-        </div>
-        <div className="input-fields">
-        <input
-          label="Name of Participant"
-          className="input-field"
-          type="text"
-          id="participantName"
-          placeholder="Name of Participant"
-          value={participantName}
-          onChange={(e) => setParticipantName(e.target.value)}
-        />
-          <div className="date-input">
-            <label htmlFor="joinDate">Date of Join</label>
-            <div className="date-picker">
-           
-            <input type="date" id="joinDate" name="joinDate" alt="Calendar icon" value={joinDate} onChange={(e) => setJoinDate(e.target.value)} />
-                
-              
+          <div className="input-fields">
+            <input
+              type="text"
+              id="participantName"
+              placeholder="Name of Participant"
+              value={participantName}
+              onChange={(e) => setParticipantName(e.target.value)}
+            />
+            <input
+              type="email"
+              id="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <div className="date-input">
+              <label htmlFor="joinDate">Date of Join</label>
+              <div className="date-picker">
+                <input type="date" id="joinDate" name="joinDate" alt="Calendar icon" value={joinDate} onChange={(e) => setJoinDate(e.target.value)} />
+              </div>
             </div>
           </div>
-        </div>
-        <div className="additional-fields">
-          <label htmlFor="birthday">Birthday</label>
-          <label htmlFor="contactNo">Contact No.</label>
-        </div>
-        <div className="input-fields">
-          <div className="date-picker">
-          <input type="date" id="birthday" name="birthday" alt="Calendar icon" value={birthday} onChange={(e) => setBirthday(e.target.value)} />
+          <div className="additional-fields">
+            <label htmlFor="birthday">Birthday</label>
+            <label htmlFor="contactNo">Contact No.</label>
           </div>
-          <input
-            type="tel"
-            id="contactNo"
-            placeholder="Contact No."
-            aria-label="Contact No."
-            value={contactNo}
-            onChange={(e) => setContactNo(e.target.value)}
-          />
-        </div>
-        <div className="gender-label">Sexe</div>
+          <div className="input-fields">
+            <div className="date-picker">
+              <input type="date" id="birthday" name="birthday" alt="Calendar icon" value={birthday} onChange={(e) => setBirthday(e.target.value)} />
+            </div>
+            <input
+              type="tel"
+              id="contactNo"
+              placeholder="Contact No."
+              value={contactNo}
+              onChange={(e) => setContactNo(e.target.value)}
+            />
+          </div>
+          <div className="additional-fields">
+            <label htmlFor="password">Password</label>
+          </div>
+          <div className="input-fields">
+            <input
+              type="password"
+              id="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+          <div className="gender-label">Gender</div>
           <div className="gender-options">
-          <select className="gender-option" value={gender} onChange={(e) => setGender(e.target.value)}>
-            <option value="man">Man</option>
-            <option value="woman">Woman</option>
-          </select>
+            <select className="gender-option" value={gender} onChange={(e) => setGender(e.target.value)}>
+              <option value="man">Man</option>
+              <option value="woman">Woman</option>
+            </select>
           </div>
-        <footer className="form-actions">
-          <Button className="fingerprint-btn">Cordinate Fingerprint</Button>
-          <div className="membership-actions">
-            <Button className="membership-btn" type="submit">Avail Membership</Button>
-            <Button className="cancel-btn">Cancel</Button>
-          </div>
-        </footer>
-      </form>
+          <footer className="form-actions">
+            <Button className="fingerprint-btn">Coordinate Fingerprint</Button>
+            <div className="membership-actions">
+              <Button className="membership-btn" type="submit">Avail Membership</Button>
+              <Button className="cancel-btn" type="button">Cancel</Button>
+            </div>
+          </footer>
+        </form>
       </div>
       <style jsx>{`
         .form-container {

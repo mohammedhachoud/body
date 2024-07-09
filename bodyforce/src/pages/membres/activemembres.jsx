@@ -1,4 +1,6 @@
 import * as React from "react";
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const gymMembersData = [
   {
@@ -118,9 +120,21 @@ const Pagination = () => (
 );
 
 function ActiveMembers() {
+  const [members, setMembers] = useState([]);
+
+  useEffect(() => {
+    axios.get('/members')
+      .then(response => {
+        setMembers(response.data);
+      })
+      .catch(error => {
+        console.error("There was an error fetching the members!", error);
+      });
+  }, []);
+
   return (
     <>
-      <main className="active-members">
+     <main className="active-members">
         <h1 className="page-title">Active Members</h1>
         <section className="filters">
           <div className="gym-members-filter">
@@ -158,7 +172,7 @@ function ActiveMembers() {
             <div className="header-cell">Date Expiration</div>
             <div className="header-cell">Actions</div>
           </div>
-          <GymMembersList />
+          <GymMembersList members={members} />
           <Pagination />
         </section>
       </main>

@@ -1,39 +1,80 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const AddPlan = () => {
   // Example plan data array
-  const plans = [
+
+  const [plans, setPlans] = useState([]);
+  const [formData, setFormData] = useState({
+    name: '',
+    validity: '',
+    amount: ''
+  });
+
+  useEffect(() => {
+    fetchPlans();
+  }, []);
+
+  const fetchPlans = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/plans');
+      setPlans(response.data);
+    } catch (error) {
+      console.error('Error fetching plans:', error);
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+
+      await axios.post('http://localhost:5000/plans', formData);
+      fetchPlans();  // Refresh the plan list after adding a new plan
+    } catch (error) {
+      console.error('Error adding plan:', error);
+    }
+  };
+
+ /* const plans = [
     { name: '1 month', validity: 1, amount: 800 },
     { name: '3 months', validity: 3, amount: 2200 },
     { name: '6 months', validity: 6, amount: 4300 },
     { name: 'Annual', validity: 12, amount: 8500 }
-  ];
+  ];*/
 
   return (
     <div className="container">
-      <div className="add-plan">
-        <h1>ADD a Plan</h1>
+    <div className="add-plan">
+      <h1>ADD a Plan</h1>
+      <form onSubmit={handleSubmit}>
         <div className="form-row">
           <div className="form-group">
             <label>Plan Name</label>
-            <input type="text" />
+            <input type="text" name="name" value={formData.name} onChange={handleChange} />
           </div>
           <div className="form-group">
             <label>Validity</label>
-            <input type="text" />
+            <input type="text" name="validity" value={formData.validity} onChange={handleChange} />
           </div>
         </div>
         <div className="form-group2">
           <label>Amount</label>
-          <input type="text" />
+          <input type="text" name="amount" value={formData.amount} onChange={handleChange} />
         </div>
         <div className="form-actions">
-          <button className="save-btn">Save</button>
-          <button className="cancel-btn">Cancel</button>
+          <button type="submit" className="save-btn">Save</button>
+          <button type="button" className="cancel-btn">Cancel</button>
         </div>
-      </div>
+      </form>
+    </div>
 
-      <div className="plan-list">
+    <div className="plan-list">
         <div className="list-controls">
           <div className="show-entities">
             <label>Show Entities</label>

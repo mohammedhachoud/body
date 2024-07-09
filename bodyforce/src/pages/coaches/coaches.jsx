@@ -1,17 +1,22 @@
 import * as React from "react";
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 import CoachCard from "../../components/cards/coachcard";
 
 export default function Coachess() {
-  const coaches = [
-    {
-      name: "Coach 1",
-      id: "SFM2301N1",
-      contactDate: "Jan 11",
-      expirationDate: "Feb 11",
-    },
-    // Add more coach objects as needed
-  ];
-  
+  const [coaches, setCoaches] = useState([]);
+
+  useEffect(() => {
+    // Fetch the data from the backend
+    axios.get('/api/coaches')
+      .then(response => {
+        setCoaches(response.data);
+      })
+      .catch(error => {
+        console.error('There was an error fetching the coaches!', error);
+      });
+  }, []);
+
   return (
     <>
       <div className="container">

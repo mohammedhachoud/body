@@ -5,19 +5,27 @@ export default function Addinventory() {
   const [equipmentName, setEquipmentName] = useState("");
   const [price, setPrice] = useState("");
   const [totalNo, setTotalNo] = useState("");
-
+  const [description, setDescription] = useState("");
+  const [image, setImage] = useState("");
+  const [categoryId, setCategoryId] = useState("");
+  const [status, setStatus] = useState("active");
+  
+// function of posting to bakend
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     const equipmentData = {
       name: equipmentName,
       price: price,
-      totalNo: totalNo,
+      description: description,
+      image: image,
+      stock: totalNo,
+      status: status,
     };
 
     try {
-      console.log(equipmentData)
-      const response = await axios.post('http://your-php-backend-url', equipmentData);
+      console.log(equipmentData);
+      const response = await axios.post('api/products', equipmentData);
       console.log(response.data);
     } catch (error) {
       console.error(error);

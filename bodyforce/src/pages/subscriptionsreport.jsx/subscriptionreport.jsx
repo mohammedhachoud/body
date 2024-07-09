@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const SubscriptionsReport = () => {
   // Example payment history data
@@ -9,6 +10,30 @@ const SubscriptionsReport = () => {
     { memberName: 'Member 4', memberId: 'SFM2301N4', plan: '3 Months', month: 'JAN', datePaid: '10-01-2023', amount: 3500 }
   ];
 
+  const [subscriptions, setSubscriptions] = useState([]);
+  const [fromDate, setFromDate] = useState('');
+  const [toDate, setToDate] = useState('');
+  const [total, setTotal] = useState(0);
+
+  useEffect(() => {
+    fetchSubscriptions();
+  }, []);
+
+  const fetchSubscriptions = async () => {
+    try {
+      const response = await axios.get('/subscriptions');
+      setSubscriptions(response.data);
+      calculateTotal(response.data);
+    } catch (error) {
+      console.error('Error fetching subscriptions', error);
+    }
+  };
+
+  const calculateTotal = (data) => {
+    const totalAmount = data.reduce((sum, subscription) => sum + subscription.amount, 0);
+    setTotal(totalAmount);
+  };
+
   return (
     <div className="container">
       <div className="report-header">
@@ -16,15 +41,15 @@ const SubscriptionsReport = () => {
         <div className="date-filters">
           <div className="form-group">
             <label>From Date</label>
-            <input type="date" />
+            <input type="date" value={fromDate} onChange={(e) => setFromDate(e.target.value)} />
           </div>
           <div className="form-group">
             <label>To Date</label>
-            <input type="date" />
+            <input type="date" value={toDate} onChange={(e) => setToDate(e.target.value)} />
           </div>
           <div className="form-group">
             <label>Total</label>
-            
+            <input type="text" value={total} readOnly />
           </div>
         </div>
       </div>
@@ -57,14 +82,14 @@ const SubscriptionsReport = () => {
             </tr>
           </thead>
           <tbody>
-            {paymentHistory.map((payment, index) => (
+            {subscriptions.map((subscription, index) => (
               <tr key={index}>
-                <td>{payment.memberName}</td>
-                <td>{payment.memberId}</td>
-                <td>{payment.plan}</td>
-                <td>{payment.month}</td>
-                <td>{payment.datePaid}</td>
-                <td>{payment.amount}</td>
+                <td>{subscription.name}</td>
+                <td>{subscription.user_id}</td>
+                <td>{subscription.plan_id}</td>
+                <td>{new Date(subscription.membership_start).toLocaleDateString('en-US', { month: 'short' })}</td>
+                <td>{new Date(subscription.membership_start).toLocaleDateString()}</td>
+                <td>{subscription.amount}</td>
               </tr>
             ))}
           </tbody>
@@ -90,7 +115,7 @@ const SubscriptionsReport = () => {
         .date-filters {
           display: flex;
           justify-content: space-between;
-          gap: 25px; /* Add space between date filter groups */
+          gap: 25px;
         }
         .form-group {
           flex: 1;

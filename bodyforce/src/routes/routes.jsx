@@ -17,25 +17,22 @@ import LoginPage from '../pages/loginscreen/home';
 
 function AllRoutes() {
   return (
-    <Suspense fallback={<>Loading...</>}>
-      
-        <Routes>
-        <Route exact path="/" element={<LoginPage />} />
-          <Route exact path="/home" element={<AdminDash />} />
-          <Route exact path="/adminprofile" element={<Adminprofile />} />
-          <Route exact path="/registration" element={<RegisterParticipant />} />
-          <Route exact path="/plan" element={<Plan />} />
-          <Route exact path="/subscription" element={<SubscriptionsReport />} />
-          <Route exact path="/report" element={<SalesReport />} />
-          <Route exact path="/inventory" element={<Inventory />} />
-          <Route exact path="/inventory/add" element={<Addinventory />} />
-          <Route exact path="/viewmembres" element={<ActiveMembers />} />
-          <Route exact path="/coaches" element={<Coachess />} />
-          <Route exact path="/admin/register" element={<RegisterAdminForm />} />
-        </Routes>
-    
-    </Suspense>
+    <Routes>
+      <Route path="/" element={<AdminDash />} />
+      <Route path="/home" element={<AdminDash />} />
+      <Route path="/adminprofile" element={<Adminprofile />} />
+      <Route path="/registration" element={<RegisterParticipant />} />
+      <Route path="/plan" element={<Plan />} />
+      <Route path="/subscription" element={<SubscriptionsReport />} />
+      <Route path="/report" element={<SalesReport />} />
+      <Route path="/inventory" element={<Inventory />} />
+      <Route path="/inventory/add" element={<Addinventory />} />
+      <Route path="/viewmembres" element={<ActiveMembers />} />
+      <Route path="/coaches" element={<Coachess />} />
+      <Route path="/admin/register" element={<RegisterAdminForm />} />
+    </Routes>
   );
 }
+
 
 export default AllRoutes;
